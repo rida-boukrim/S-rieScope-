@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-[#080808]">
+    <header class="">
+      <div class="flex items-center mt-4 ml-3.5 lg:ml-5">
+        <i class="fa-solid fa-film bg-white mr-1.5 p-2 rounded-lg"></i>
+        <p class="text-[#FAFAFA] text-lg">Sériescope</p>
+      </div>
+    </header>
+    <main>
+      <section class="bg-[#101010] mt-2.5">
+        <p class="text-xl text-[#FAFAFA] ml-2.5 font-bold lg:ml-5">
+          Explore les séries TV
+        </p>
+        <p class="text-[#BABABA] text-xs ml-2.5 lg:ml-5">
+          Retrouve tes séries préférées et enrichis le catalogue.
+        </p>
+
+        <form
+          action=""
+          class="bg-[#191919] border-2 border-[#393939] mr-1 ml-1 rounded-sm mt-2.5 p-2.5 outline-none lg:mx-2.5"
+        >
+          <p class="text-[#FAFAFA] text-xl font-bold">Ajouter une série</p>
+          <p class="text-[#BABABA] font-normal text-sm mt-1">
+            Les champs marqués d’un * sont obligatoires.
+          </p>
+          <div class="lg:grid grid-cols-2 gap-1.5">
+            <div>
+              <label
+                for=""
+                class="text-[#FAFAFA] block text-sm font-semibold ml-1.5 mt-1 mb-1"
+                >Nom de la série *</label
+              >
+              <input
+                type="text"
+                class="border w-full p-1.5 border-[#393939] text-white rounded-md outline-none"
+                placeholder="Ex. The Bear"
+              />
+            </div>
+            <div>
+              <label
+                for=""
+                class="block text-[#FAFAFA] text-sm font-semibold ml-1.5 mt-1 mb-1"
+              >
+                Genre(s) *
+                <span class="text-[#BABABA] text-xs font-normal"
+                  >séparés par des virgules</span
+                ></label
+              >
+              <input
+                type="text"
+                class="border w-full p-1.5 border-[#393939] text-white rounded-md outline-none"
+                placeholder="Ex. Drame, Comédie"
+              />
+            </div>
+          </div>
+          <label
+            for=""
+            class="font-semibold text-sm text-[#FAFAFA] block mt-1 mb-1"
+            >Description
+            <span class="font-normal text-[#BABABA] text-xs"
+              >facultative</span
+            ></label
+          >
+          <textarea
+            name=""
+            id=""
+            placeholder="Résume la série en quelques mots…"
+            class="border w-full p-2.5 resize-none border-[#393939] rounded-md outline-none text-white"
+          ></textarea>
+          <div class="lg: flex justify-start">
+            <button
+              type="submit"
+              class="w-full bg-white p-2.5 rounded-md text-[#101010] text-sm font-semibold mt-1 mb-1 lg:w-auto"
+            >
+              ＋ Ajouter la série
+            </button>
+          </div>
+        </form>
+      </section>
+      <section>
+        <p class="text-[#FAFAFA] font-bold text-xl ml-1.5 mt-5 mb-1 lg:ml-5">
+          Catalogue des séries
+        </p>
+        <p
+          class="text-[#BABABA] text-sm font-normal ml-1.5 mb-2.5 mt-1 lg:ml-5"
+        >
+          Recherche par nom ou explore un genre.
+        </p>
+        <form
+          action=""
+          class="bg-[#191919] p-1.5 mb-3.5 mr-1 ml-1 rounded-md lg:mx-2.5 lg:grid lg:grid-cols-[7fr_7fr] lg:gap-1.5"
+        >
+          <div>
+            <label for="" class="block text-sm font-semibold">Recherche</label>
+            <input
+            id="Recherche"
+              type="text"
+              class="border border-[#393939] text-white w-full p-1.5 rounded-md"
+              placeholder="Ex. Breaking Bad"
+            />
+          </div>
+          <div class="flex lg:grid grid-cols-[2fr_1fr]" >
+            <div class="flex-1">
+              <label
+                for=""
+                class="block text-sm font-semibold "
+                >Genre</label
+              >
+              <select
+                name=""
+                id=""
+                class="border border-[#393939] p-1.5 px-[16px] text-white rounded-md lg:w-full flex "
+              >
+                <option value="">Tous les genre</option>
+              </select>
+            </div>
+            <button
+              type="reset"
+              class="bg-[#191919] border border-[#393939] text-white mt-5 ml-2 p-0.5 pr-2.5 pl-2.5 rounded-md px-[15px] "
+            >
+              ↻ Réinitialiser
+            </button>
+          </div>
+        </form>
+
+        <div id="list-films" class="lg:grid grid-cols-3 gap-1 mx-2.5">
+
+        </div>
+      </section>
+    </main>
+    <script src="js/scripte.js"></script>
+  </body>
+</html>
