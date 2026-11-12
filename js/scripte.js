@@ -7,9 +7,10 @@ const genreField = document.getElementById("genre");
 const description = document.getElementById("summary");
 const fomrAjouter = document.getElementById("ajouteForm");
 const voidee = document.getElementById("vide");
+const compteurSreies = document.getElementById("compteur")
 
-const nameError = document.getElementById("erroreNom")
-const typeErrore = document.getElementById("errorGenre")
+const nameError = document.getElementById("erroreNom");
+const typeErrore = document.getElementById("errorGenre");
 
 let films = [];
 let filmsOriginal = [...films];
@@ -36,8 +37,8 @@ const liste = document.getElementById("list-films");
 
 function afficher(films) {
   liste.innerHTML = "";
+  compteurSreies.textContent = films.length + " Series Afficher"
   films.forEach((element) => {
-
     const cardArticle = document.createElement("article");
     cardArticle.className = "mx-1 bg-[#191919] mb-1.5 rounded-md";
     const image = document.createElement("img");
@@ -62,76 +63,72 @@ function afficher(films) {
 
     cardArticle.append(image, titre, divGenre, descrption);
     liste.append(cardArticle);
+    
   });
   films.forEach((elemente) => {
-    elemente.genres.forEach((genree)=>{
-      const opt = document.createElement("option")
-      opt.textContent = genree
-      opt.className = "text-black"
-      let bool=true
-      document.querySelectorAll("option").forEach(elm=>{
-        if(genree==elm.value){bool=false}
-      })
-      if(bool){
-
-        filtrerParGenre.append(opt)
+    elemente.genres.forEach((genree) => {
+      const opt = document.createElement("option");
+      opt.textContent = genree;
+      opt.className = "text-black";
+      let bool = true;
+      document.querySelectorAll("option").forEach((elm) => {
+        if (genree == elm.value) {
+          bool = false;
+        }
+      });
+      if (bool) {
+        filtrerParGenre.append(opt);
       }
-    })
-  })
-}
-
-
-
-function filtrage() {
-  // rechrcher 
-  search.addEventListener("input", () => {
-    films = filmsOriginal.filter((elem) => {
-      return elem.name.toLowerCase().includes(search.value.toLowerCase());
-    });
-    afficher(films);
-    if (films.length == 0) {
-      voidee.removeAttribute("hidden");
-    }
-  });
-
-  // filtrer
-  filtrerParGenre.addEventListener("change", () => {
-    films = filmsOriginal.filter((element) => {
-      return element.genres.includes(filtrerParGenre.value);
-    });
-
-    afficher(films);
-    if (filtrerParGenre.value.includes("Tous les genre")) {
-      afficher(filmsOriginal);
-    }
-    Reinitialiser.addEventListener("click", () => {
-      filtrerParGenre.value = "Tous les genre";
-      afficher(filmsOriginal);
     });
   });
 }
 
-filtrage();
+function filtrerEtRechercher() {
+  const searchValue = search.value.toLowerCase().trim();
+  const genreValue = filtrerParGenre.value;
+
+  const resultat = filmsOriginal.filter((elem) => {
+    const matchName = elem.name.toLowerCase().includes(searchValue);
+    const matchGenre =
+      genreValue.includes("Tous les genre") || elem.genres.includes(genreValue);
+
+    return matchName && matchGenre;
+  });
+
+  afficher(resultat);
+   voidee.toggleAttribute("hidden", resultat.length > 0);
+}
+
+search.addEventListener("input", filtrerEtRechercher);
+filtrerParGenre.addEventListener("change", filtrerEtRechercher);
+
+Reinitialiser.addEventListener("click", () => {
+  search.value = "";
+  filtrerParGenre.value = "Tous les genre";
+  afficher(filmsOriginal);
+});
+
 // function ajouter
 ajouter.addEventListener("click", (e) => {
   e.preventDefault();
-  nameError.textContent = ""
-  typeErrore.textContent =""
-  if(titleField.value == ""){
-    nameError.className = "text-red-500 "
-    nameError.textContent = "champ required"
-   
+  nameError.textContent = "";
+  typeErrore.textContent = "";
+
+  if (titleField.value == "") {
+    nameError.className = "text-red-500 ";
+    nameError.textContent = "champ required";
   }
-  if (genreField.value == 0){
-    typeErrore.className ="text-red-500"
-    typeErrore.textContent = "champ required"
-    return
+  if (genreField.value == 0) {
+    typeErrore.className = "text-red-500";
+    typeErrore.textContent = "champ required";
+    return;
   }
 
   const namee = titleField.value;
   const leGenre = genreField.value;
   const sum = description.value;
-  const photo = { original: "assets/images/41.jpg" };
+  const photo = { original: "assets/images/image.Webp" };
+
 
   const nouvelle = {
     name: namee,
@@ -140,6 +137,10 @@ ajouter.addEventListener("click", (e) => {
     genres: leGenre.split(","),
   };
   filmsOriginal.push(nouvelle);
+   compteurSreies.textContent = filmsOriginal.length
   fomrAjouter.reset();
+  
+  
+
   afficher(filmsOriginal);
 });
