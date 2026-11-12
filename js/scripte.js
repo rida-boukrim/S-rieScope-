@@ -12,20 +12,37 @@ const compteurSreies = document.getElementById("compteur")
 const nameError = document.getElementById("erroreNom");
 const typeErrore = document.getElementById("errorGenre");
 
+
 let films = [];
 let filmsOriginal = [...films];
+
 
 async function recuperation() {
   try {
     const response = await fetch("https://api.tvmaze.com/shows?page=0");
     if (!response.ok) {
       throw new Error("somthing went wrong");
-    }
-    const data = await response.json();
-    films = data.slice(0, 20);
-    filmsOriginal = [...films];
 
-    afficher(films);
+    }
+        
+    const data = await response.json();
+
+      const dataStorage = localStorage.getItem("films");
+
+    if (dataStorage !== null) {
+  
+      filmsOriginal = JSON.parse(dataStorage);
+    } else {
+      
+      filmsOriginal = data.slice(0, 20);
+
+    
+      localStorage.setItem("films", JSON.stringify(filmsOriginal));
+    }
+films = [...filmsOriginal];
+
+afficher(filmsOriginal);
+    
   } catch (error) {
     console.log("Error", error.message);
   }
@@ -89,8 +106,7 @@ function filtrerEtRechercher() {
 
   const resultat = filmsOriginal.filter((elem) => {
     const matchName = elem.name.toLowerCase().includes(searchValue);
-    const matchGenre =
-      genreValue.includes("Tous les genre") || elem.genres.includes(genreValue);
+    const matchGenre = genreValue.includes("Tous les genre") || elem.genres.includes(genreValue);
 
     return matchName && matchGenre;
   });
@@ -137,6 +153,7 @@ ajouter.addEventListener("click", (e) => {
     genres: leGenre.split(","),
   };
   filmsOriginal.push(nouvelle);
+  localStorage.setItem("films",JSON.stringify(filmsOriginal))
    compteurSreies.textContent = filmsOriginal.length
   fomrAjouter.reset();
   
