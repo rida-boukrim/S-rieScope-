@@ -27,6 +27,7 @@
         </p>
 
         <form
+        id="ajouteForm"
           action=""
           class="bg-[#191919] border-2 border-[#393939] mr-1 ml-1 rounded-sm mt-2.5 p-2.5 outline-none lg:mx-2.5"
         >
@@ -42,10 +43,12 @@
                 >Nom de la série *</label
               >
               <input
+                id="titre"
                 type="text"
                 class="border w-full p-1.5 border-[#393939] text-white rounded-md outline-none"
                 placeholder="Ex. The Bear"
               />
+              <p id="erroreNom"></p>
             </div>
             <div>
               <label
@@ -53,20 +56,22 @@
                 class="block text-[#FAFAFA] text-sm font-semibold ml-1.5 mt-1 mb-1"
               >
                 Genre(s) *
-                <span class="text-[#BABABA] text-xs font-normal"
+                <span class="text-[#BABABA] text-xs font-normal "
                   >séparés par des virgules</span
                 ></label
               >
               <input
+                id="genre"
                 type="text"
                 class="border w-full p-1.5 border-[#393939] text-white rounded-md outline-none"
                 placeholder="Ex. Drame, Comédie"
               />
+              <p id="errorGenre"></p>
             </div>
           </div>
           <label
             for=""
-            class="font-semibold text-sm text-[#FAFAFA] block mt-1 mb-1"
+            class ="font-semibold text-sm text-[#FAFAFA] block mt-1 mb-1"
             >Description
             <span class="font-normal text-[#BABABA] text-xs"
               >facultative</span
@@ -74,12 +79,13 @@
           >
           <textarea
             name=""
-            id=""
+            id="summary"
             placeholder="Résume la série en quelques mots…"
             class="border w-full p-2.5 resize-none border-[#393939] rounded-md outline-none text-white"
           ></textarea>
           <div class="lg: flex justify-start">
             <button
+              id="Ajouter"
               type="submit"
               class="w-full bg-white p-2.5 rounded-md text-[#101010] text-sm font-semibold mt-1 mb-1 lg:w-auto"
             >
@@ -102,32 +108,36 @@
           class="bg-[#191919] p-1.5 mb-3.5 mr-1 ml-1 rounded-md lg:mx-2.5 lg:grid lg:grid-cols-[7fr_7fr] lg:gap-1.5"
         >
           <div>
-            <label for="" class="block text-sm font-semibold">Recherche</label>
+            <label for="" class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1">Recherche</label>
             <input
-            id="Recherche"
+              id="Recherche"
               type="text"
               class="border border-[#393939] text-white w-full p-1.5 rounded-md"
               placeholder="Ex. Breaking Bad"
             />
           </div>
-          <div class="flex lg:grid grid-cols-[2fr_1fr]" >
+          <div class="flex lg:grid grid-cols-[2fr_1fr]">
             <div class="flex-1">
-              <label
-                for=""
-                class="block text-sm font-semibold "
-                >Genre</label
-              >
+              <label for="" class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1">Genre</label>
               <select
                 name=""
-                id=""
-                class="border border-[#393939] p-1.5 px-[16px] text-white rounded-md lg:w-full flex "
+                id="genres"
+                class="border border-[#393939] p-1.5 px-[16px] text-white rounded-md lg:w-full flex"
               >
-                <option value="">Tous les genre</option>
+                <option value="Tous les genre" class="text-black">
+                  Tous les genre
+                </option>
+                <!-- <option value="Drama" class="text-black">Drama</option>
+                <option value="Science-Fiction" class="text-black">
+                  Science-Fiction
+                </option>
+                <option value="Thriller" class="text-black">Thriller</option> -->
               </select>
             </div>
             <button
+              id="resete"
               type="reset"
-              class="bg-[#191919] border border-[#393939] text-white mt-5 ml-2 p-0.5 pr-2.5 pl-2.5 rounded-md px-[15px] "
+              class="bg-[#191919] border border-[#393939] text-white mt-7 ml-2 p-0.5 pr-2.5 pl-2.5 rounded-md px-[15px]"
             >
               ↻ Réinitialiser
             </button>
@@ -136,7 +146,10 @@
 
         <div id="list-films" class="lg:grid grid-cols-3 gap-1 mx-2.5">
 
+          
         </div>
+              <p class="text-2xl text-white flex justify-center" id="vide" hidden>Aucune série trouvée !</p>
+
       </section>
     </main>
     <script src="js/scripte.js"></script>
