@@ -1,4 +1,15 @@
 const search = document.getElementById("Recherche");
+const filtrerParGenre = document.getElementById("genres");
+const Reinitialiser = document.getElementById("resete");
+const ajouter = document.getElementById("Ajouter");
+const titleField = document.getElementById("titre");
+const genreField = document.getElementById("genre");
+const description = document.getElementById("summary");
+const fomrAjouter = document.getElementById("ajouteForm");
+const voidee = document.getElementById("vide");
+
+const nameError = document.getElementById("erroreNom")
+const typeErrore = document.getElementById("errorGenre")
 
 let films = [];
 let filmsOriginal = [...films];
@@ -24,10 +35,11 @@ recuperation();
 const liste = document.getElementById("list-films");
 
 function afficher(films) {
-  liste.innerHTML = ""
+  liste.innerHTML = "";
   films.forEach((element) => {
+
     const cardArticle = document.createElement("article");
-    cardArticle.className = "mx-1 bg-[#393939] mb-1.5 rounded-md";
+    cardArticle.className = "mx-1 bg-[#191919] mb-1.5 rounded-md";
     const image = document.createElement("img");
     image.className = "rounded-md h-[75%] w-[100%]";
     image.src = element.image.original;
@@ -38,7 +50,8 @@ function afficher(films) {
     divGenre.className = "flex ml-1.5 mb-1 ";
     element.genres.forEach((genre) => {
       const genre1 = document.createElement("p");
-      genre1.className = "mr-1 bg-[#292929] px-1 mt-0.5 mb-0.5 rounded-xl ";
+      genre1.className =
+        "mr-1 bg-[#292929] px-1 mt-0.5 mb-0.5 rounded-xl text-[#EEEEEE] ";
       genre1.textContent = genre;
 
       divGenre.append(genre1);
@@ -50,11 +63,83 @@ function afficher(films) {
     cardArticle.append(image, titre, divGenre, descrption);
     liste.append(cardArticle);
   });
+  films.forEach((elemente) => {
+    elemente.genres.forEach((genree)=>{
+      const opt = document.createElement("option")
+      opt.textContent = genree
+      opt.className = "text-black"
+      let bool=true
+      document.querySelectorAll("option").forEach(elm=>{
+        if(genree==elm.value){bool=false}
+      })
+      if(bool){
+
+        filtrerParGenre.append(opt)
+      }
+    })
+  })
 }
 
-search.addEventListener("input", () => {
-  films = filmsOriginal.filter((elem) => {
-    return elem.name.toLowerCase().includes(search.value.toLowerCase());
+
+
+function filtrage() {
+  // rechrcher 
+  search.addEventListener("input", () => {
+    films = filmsOriginal.filter((elem) => {
+      return elem.name.toLowerCase().includes(search.value.toLowerCase());
+    });
+    afficher(films);
+    if (films.length == 0) {
+      voidee.removeAttribute("hidden");
+    }
   });
-  afficher(films);
+
+  // filtrer
+  filtrerParGenre.addEventListener("change", () => {
+    films = filmsOriginal.filter((element) => {
+      return element.genres.includes(filtrerParGenre.value);
+    });
+
+    afficher(films);
+    if (filtrerParGenre.value.includes("Tous les genre")) {
+      afficher(filmsOriginal);
+    }
+    Reinitialiser.addEventListener("click", () => {
+      filtrerParGenre.value = "Tous les genre";
+      afficher(filmsOriginal);
+    });
+  });
+}
+
+filtrage();
+// function ajouter
+ajouter.addEventListener("click", (e) => {
+  e.preventDefault();
+  nameError.textContent = ""
+  typeErrore.textContent =""
+  if(titleField.value == ""){
+    nameError.className = "text-red-500 "
+    nameError.textContent = "champ required"
+   
+  }
+  if (genreField.value == 0){
+    typeErrore.className ="text-red-500"
+    typeErrore.textContent = "champ required"
+    return
+  }
+
+  const namee = titleField.value;
+  const leGenre = genreField.value;
+  const sum = description.value;
+  const photo = { original: "assets/images/41.jpg" };
+
+  const nouvelle = {
+    name: namee,
+    summary: sum,
+    image: photo,
+    genres: leGenre.split(","),
+  };
+  filmsOriginal.push(nouvelle);
+  fomrAjouter.reset();
+  afficher(filmsOriginal);
 });
