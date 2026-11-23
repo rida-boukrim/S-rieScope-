@@ -7,7 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body class="bg-[#080808]">
@@ -27,7 +27,7 @@
         </p>
 
         <form
-        id="ajouteForm"
+          id="ajouteForm"
           action=""
           class="bg-[#191919] border-2 border-[#393939] mr-1 ml-1 rounded-sm mt-2.5 p-2.5 outline-none lg:mx-2.5"
         >
@@ -35,8 +35,9 @@
           <p class="text-[#BABABA] font-normal text-sm mt-1">
             Les champs marqués d’un * sont obligatoires.
           </p>
-          <div class="lg:grid grid-cols-2 gap-1.5">
+          <div class="lg:grid grid-cols-3 gap-1.5">
             <div>
+              
               <label
                 for=""
                 class="text-[#FAFAFA] block text-sm font-semibold ml-1.5 mt-1 mb-1"
@@ -56,7 +57,7 @@
                 class="block text-[#FAFAFA] text-sm font-semibold ml-1.5 mt-1 mb-1"
               >
                 Genre(s) *
-                <span class="text-[#BABABA] text-xs font-normal "
+                <span class="text-[#BABABA] text-xs font-normal"
                   >séparés par des virgules</span
                 ></label
               >
@@ -68,10 +69,29 @@
               />
               <p id="errorGenre"></p>
             </div>
+            <div>
+              <label
+                for="language"
+                class="block text-[#FAFAFA] text-sm font-semibold ml-1.5 mt-1 mb-1"
+                >choisie votre language</label
+              >
+              <select
+                name=""
+                id="language"
+                class="border w-full p-1.5 border-[#393939] text-white rounded-md outline-none"
+              >
+                <option value="all" class="text-black">all</option>
+                <option value="arabic" class="text-black">arabic</option>
+                <option value="English" class="text-black">English</option>
+                <option value="francais" class="text-black">francais</option>
+                <option value="spain" class="text-black">spain</option>
+
+              </select>
+            </div>
           </div>
           <label
             for=""
-            class ="font-semibold text-sm text-[#FAFAFA] block mt-1 mb-1"
+            class="font-semibold text-sm text-[#FAFAFA] block mt-1 mb-1"
             >Description
             <span class="font-normal text-[#BABABA] text-xs"
               >facultative</span
@@ -108,7 +128,11 @@
           class="bg-[#191919] p-1.5 mb-3.5 mr-1 ml-1 pb-2.5 rounded-md lg:mx-2.5 lg:grid lg:grid-cols-[7fr_7fr] lg:gap-1.5"
         >
           <div>
-            <label for="" class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1">Recherche</label>
+            <label
+              for=""
+              class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1"
+              >Recherche</label
+            >
             <input
               id="Recherche"
               type="text"
@@ -118,7 +142,11 @@
           </div>
           <div class="flex lg:grid grid-cols-[2fr_1fr]">
             <div class="flex-1">
-              <label for="" class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1">Genre</label>
+              <label
+                for=""
+                class="block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1"
+                >Genre</label
+              >
               <select
                 name=""
                 id="genres"
@@ -127,9 +155,10 @@
                 <option value="Tous les genre" class="text-black">
                   Tous les genre
                 </option>
-
               </select>
+
             </div>
+
             <button
               id="resete"
               type="reset"
@@ -138,18 +167,24 @@
               ↻ Réinitialiser
             </button>
           </div>
+                   <div >
+                      <label for="" class=" block text-sm font-semibold text-[#FAFAFA] mt-1 mb-1">languages</label>
+              <select name="" id="selectLanguage" class="border border-[#393939] pt-1.5 pb-1.5 px-4 text-white rounded-md lg:w-full flex">
+                <option value="" class="text-black"> any languages</option>
+
+              </select>
+            </div>
         </form>
 
         <p class="text-white ml-3.5 mt-1 mb-1" id="compteur"></p>
 
-        <div id="list-films" class="lg:grid grid-cols-3 gap-1 mx-2.5">
-
-          
-        </div>
-              <p class="text-2xl text-white flex justify-center" id="vide" hidden>Aucune série trouvée !</p>
-
+        <div id="list-films" class="lg:grid grid-cols-3 gap-1 mx-2.5"></div>
+        <p class="text-2xl text-white flex justify-center" id="vide " hidden>
+          Aucune série trouvée !
+        </p>
       </section>
     </main>
-    <script src="js/scripte.js"></script>
+
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
