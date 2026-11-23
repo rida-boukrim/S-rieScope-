@@ -160,4 +160,5 @@ ajouter.addEventListener("click", (e) => {
   
 
   afficher(filmsOriginal);
+  
 });
